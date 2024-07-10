@@ -24,7 +24,7 @@ const Introduction = () => {
 			<div className={styles.buttonWrapper}>
 				<button
 					onClick = {() => {navigate(`/${lang}/${exp}/${participant}/0`)}}
-				>{"Start Experiment"}</button>
+				>{"Proceed to Survey"}</button>
 			</div>
 		</div>
 	)

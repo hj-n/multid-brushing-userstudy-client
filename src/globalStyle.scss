@@ -29,7 +29,14 @@ button {
 	font-weight: $bold;
 	color: $mainLightColor;
 
+	:disabled {
+		background-color: $grayColor;
+		cursor: not-allowed;
+	}
+
 }
+
+
 
 .buttonWrapper {
 	display: flex;

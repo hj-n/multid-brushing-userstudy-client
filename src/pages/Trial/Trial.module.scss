@@ -1,1 +1,8 @@
 @import "../../globalStyle.scss";
+
+.disablableButton {
+	:disabled {
+		background-color: $grayColor;
+		cursor: not-allowed;
+	}
+}

@@ -27,6 +27,8 @@ const Trial = () => {
 	let start = null;
 	let end = null;
 
+	let trialInfo = null;
+
 	const pointRenderingStyle = {
 		"style": "monochrome",
 		"size": 20,
@@ -36,21 +38,25 @@ const Trial = () => {
 		"removeBackground": true,
 	}
 
-	const confirmBrushing = () => {
+	const confirmBrushing = async () => {
+
+		if (trialInfo.stage === "training") return;
 
 		end = Date.now();
 		const status = multidbrushing.getBrushingStatus();
 		const brushedIndex = Array.from(status[0]);
 		const completionTime = (end - start) / 1000;
 
-		console.log(completionTime);
-		console.log(brushedIndex);
+		await communication.postBrushingResult(brushedIndex, completionTime, exp, participant, trial, trialInfo.identifier);
 	}
 
 
 	useEffect(() => {
+
+		buttonRef.current.disabled = true;
+		buttonRef.current.style.cursor = "not-allowed";
 		(async () => {
-			const trialInfo = await communication.getTrialInfo(exp, participant, trial);
+			trialInfo = await communication.getTrialInfo(exp, participant, trial);
 			const preprocessed = await communication.getPreprocessedData(exp, trialInfo.identifier);
 			
 			brushingName = {
@@ -107,14 +113,20 @@ const Trial = () => {
 				trialInfo.technique
 			);
 
-			if (trial < 39) {
+			if (parseInt(trial) < 39) {
 				navigateTarget = `/${lang}/${exp}/${participant}/${parseInt(trial) + 1}`
+			}
+			else if (parseInt(trial) === 39) {
+				navigateTarget = `/${lang}/closing`
 			}
 
 			canvasRef.current.addEventListener("mousemove", (event) => {
 				if (start === null) {
 					start = Date.now();
 					console.log(start)
+
+					buttonRef.current.disabled = false;
+					buttonRef.current.style.cursor = "pointer"
 				}	
 			});
 		})();
@@ -141,11 +153,12 @@ const Trial = () => {
 			</div>
 			<div className={styles.buttonWrapper}>
 				<button 
+					className={styles.disablableButton}
 					onClick={() => { 
 						(async() => {
-							confirmBrushing(); 
-							// navigate(navigateTarget); 
-							// window.location.reload(); 
+							await confirmBrushing(); 
+							navigate(navigateTarget); 
+							window.location.reload(); 
 						})();
 						
 					}}
