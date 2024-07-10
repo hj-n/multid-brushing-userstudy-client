@@ -24,6 +24,9 @@ const Trial = () => {
 	let navigateTarget = null;
 	const navigate = useNavigate();
 
+	let start = null;
+	let end = null;
+
 	const pointRenderingStyle = {
 		"style": "monochrome",
 		"size": 20,
@@ -33,9 +36,17 @@ const Trial = () => {
 		"removeBackground": true,
 	}
 
-	const statusUpdateCallback = () => {
-		console.log("Status Update Callback");
+	const confirmBrushing = () => {
+
+		end = Date.now();
+		const status = multidbrushing.getBrushingStatus();
+		const brushedIndex = Array.from(status[0]);
+		const completionTime = (end - start) / 1000;
+
+		console.log(completionTime);
+		console.log(brushedIndex);
 	}
+
 
 	useEffect(() => {
 		(async () => {
@@ -49,7 +60,6 @@ const Trial = () => {
 				"mbb": "M-Ball Brushing"
 			}[trialInfo.technique]
 
-			console.log(trialInfo)
 			if (trialInfo.stage === "training") {
 				titleRef.current.innerText = "Training Session for " + brushingName;
 				descriptionRef.current.innerHTML = `You will now have <b>five minutes</b> to familiarize yourself with the ${brushingName} technique. Please try to accurately select the designated digit.`;
@@ -69,17 +79,30 @@ const Trial = () => {
 					buttonRef.current.innerHTML = "Proceed to the next trial";
 				else
 					buttonRef.current.innerHTML = "Proceed to the next technique";
+
+
+				if (trialInfo.distortion_inspection == "global_local") {
+					showDensityId = true;
+					showClosenessId = true;
+				} 
+				else if (trialInfo.distortion_inspection == "global") {
+					showDensityId = true;
+					showClosenessId = false;
+				}
+				else if (trialInfo.distortion_inspection == "no") {
+					showDensityId = false;
+					showClosenessId = false;
+				}
 			}
 			designationRef.current.innerHTML = `Designated Digit: <em style="color:rgba(64, 156, 255); font-size: 1.5rem" > ${trialInfo.target} </em>`;
 
 
-			console.log(preprocessed)
 
 			preprocessed.hd = preprocessed.original_data
 
 			multidbrushing = new MultiDBrushing(
 				preprocessed, canvasRef.current, 600,
-				statusUpdateCallback, pointRenderingStyle,
+				() => {}, pointRenderingStyle,
 				showDensityId, showClosenessId,
 				trialInfo.technique
 			);
@@ -88,11 +111,14 @@ const Trial = () => {
 				navigateTarget = `/${lang}/${exp}/${participant}/${parseInt(trial) + 1}`
 			}
 
-
-
+			canvasRef.current.addEventListener("mousemove", (event) => {
+				if (start === null) {
+					start = Date.now();
+					console.log(start)
+				}	
+			});
 		})();
 	})
-
 
 
 
@@ -115,7 +141,14 @@ const Trial = () => {
 			</div>
 			<div className={styles.buttonWrapper}>
 				<button 
-					onClick={() => { navigate(navigateTarget); window.location.reload(); }}
+					onClick={() => { 
+						(async() => {
+							confirmBrushing(); 
+							// navigate(navigateTarget); 
+							// window.location.reload(); 
+						})();
+						
+					}}
 					ref={buttonRef}
 				></button>
 			</div>
