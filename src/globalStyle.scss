@@ -16,5 +16,29 @@ body {
 	font-weight: $regular;
 	font-size: $smallFontSize;
 	background-color: $mainBackGroundColor;
-	margin: 20px 400px 20px 400px;
+	margin: 20px 550px 20px 550px;
+}
+
+button {
+	width: 200px;
+	height: 40px;
+	border-radius: 10px;
+	border: 0px;
+	cursor: pointer;
+	background-color: $mainColor;
+	font-weight: $bold;
+	color: $mainLightColor;
+
+}
+
+.buttonWrapper {
+	display: flex;
+	justify-content: right;
+	margin-top: 30px;
+}
+
+.canvasWrapper {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
 }

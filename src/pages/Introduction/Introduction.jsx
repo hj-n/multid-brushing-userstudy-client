@@ -1,7 +1,7 @@
 
 import React from 'react';
 import introInfo from "./introInfo.json";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import Parser from 'html-react-parser';
 import styles from "./Introduction.module.scss";
@@ -11,8 +11,8 @@ import styles from "./Introduction.module.scss";
 const Introduction = () => {
 
 
-	const { lang, exp } = useParams();
-
+	const { lang, exp, participant } = useParams();
+	const navigate = useNavigate();
 	const introInfoLang = introInfo[lang]
 
 	return (
@@ -21,6 +21,11 @@ const Introduction = () => {
 			{introInfoLang.description.map((paragraph, index) => {
 				return <p key={index}>{Parser(paragraph)}</p>
 			})}
+			<div className={styles.buttonWrapper}>
+				<button
+					onClick = {() => {navigate(`/${lang}/${exp}/${participant}/0`)}}
+				>{"Start Experiment"}</button>
+			</div>
 		</div>
 	)
 }
