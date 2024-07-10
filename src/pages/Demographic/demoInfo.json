@@ -1,0 +1,24 @@
+{
+	"Age": {
+		"format": "textbox"
+	},
+	"Gender": {
+		"format": "radio",
+		"options": ["Male", "Female", "Others"]
+	},
+	"Education": {
+		"format": "dropdown",
+		"options": ["Undergraduate", "Bachelor", "Master", "PhD", "Others"]
+	},
+	"Major": {
+		"format": "textbox"
+	},
+	"Familiarity with data visualization": {
+		"format": "radio",
+		"options": ["Novice", "Intermediate", "Expert"]
+	},
+	"Familiarity with Scatterplot": {
+		"format": "radio",
+		"options": ["Novice", "Intermediate", "Expert"]
+	}
+}

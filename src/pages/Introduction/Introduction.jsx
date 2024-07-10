@@ -23,7 +23,7 @@ const Introduction = () => {
 			})}
 			<div className={styles.buttonWrapper}>
 				<button
-					onClick = {() => {navigate(`/${lang}/${exp}/${participant}/0`)}}
+					onClick = {() => {navigate(`/${lang}/${exp}/${participant}/survey`)}}
 				>{"Proceed to Survey"}</button>
 			</div>
 		</div>

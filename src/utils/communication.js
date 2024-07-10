@@ -56,7 +56,22 @@ export async function postBrushingResult(brushedIndex, completionTime, exp, part
 			"trial": trial,
 			"identifier": identifier
 		}
-
 	})
 
+}
+
+export async function postSurveyResult(age, gender, education, major, familVis, familScatter, participant) {
+	axiosRetry(axios, { retries: 3 });
+
+	const response = await axios.post(`${server}/postsurveyresult`, null, {
+		"params": {
+			"age": age,
+			"gender": gender,
+			"education": education,
+			"major": major,
+			"familVis": familVis,
+			"familScatter": familScatter,
+			"participant": participant
+		}
+	});
 }

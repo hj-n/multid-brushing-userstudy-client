@@ -1,0 +1,23 @@
+@import "../../globalStyle.scss";
+
+
+.demoWrapper {
+	display: flex;
+	margin-top: 20px;
+
+	p {
+		margin: 0px;
+	}
+
+}
+
+// input text
+
+.textInputWrapper {
+	height: 20px;
+	margin-left: 8px;
+}
+
+label {
+	margin-left: 20px;
+}
