@@ -57,6 +57,7 @@ const Trial = () => {
 		buttonRef.current.style.cursor = "not-allowed";
 		(async () => {
 			trialInfo = await communication.getTrialInfo(exp, participant, trial);
+			console.log(trialInfo)
 			const preprocessed = await communication.getPreprocessedData(exp, trialInfo.identifier);
 			
 			brushingName = {
@@ -80,7 +81,7 @@ const Trial = () => {
 				trialNumber = trialNumber - parseInt(trialNumber)
 				trialNumber = Math.round(trialNumber * 10);
 				titleRef.current.innerText = `Trial ${trialNumber}/9 for ${brushingName}`;
-				descriptionRef.current.innerHTML = "Accurately select the designated digit. Press the button to proceed to the next trial.";
+				descriptionRef.current.innerHTML = "Accurately brush the designated digit. Press the button to proceed.";
 				if (trialNumber !== 9)
 					buttonRef.current.innerHTML = "Proceed to the next trial";
 				else
@@ -104,7 +105,6 @@ const Trial = () => {
 
 
 
-			preprocessed.hd = preprocessed.original_data
 
 			multidbrushing = new MultiDBrushing(
 				preprocessed, canvasRef.current, 600,
