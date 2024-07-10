@@ -1,0 +1,13 @@
+{
+	"en": {
+		"title": "Welcome to the Experiment!!",
+		"description": [
+			"Thanks for participating the experiment.",
+			"In this experiment, we will ask you to <b>brush</b> the monocrhome scatterplot using different brushing techniques. The task is to select the <b>data points designated by the system</b>. Note that the data points are represented as <b>digits</b> in the scatterplot. The system designates a certain digit to be brushed.",
+			"The brushing techniques works by looking at the original similarity between the data points (which are digits). Some digits may similar to each other but stay apart in the scatterplot. The opposite case is also possible. The brushing techniques aim to mitigate such error by dealing with true similarity between digits.",
+			"The experiment will last about less then 60 minutes, where you will experience different brushing techniques one by one. For each brushing technique, a single practice session (5 mins) will be given.",
+			"We will also collect participants' non-identifying demographic information.",
+			"Please press the <b>Start Experiment</b> button to begin the experiment."
+		]
+	}
+}
