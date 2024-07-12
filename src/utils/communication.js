@@ -8,7 +8,10 @@ export async function getTrialInfo(exp_num, participant_num, trial_num){
 	axiosRetry(axios, { retries: 3 });
 
 	exp_num = parseInt(exp_num[3])
-	participant_num = parseInt(participant_num[1])
+	if (participant_num.length === 2)
+		participant_num = parseInt(participant_num[1])
+	else
+		participant_num = parseInt(participant_num[1] + participant_num[2])
 
 
 	const response = await axios.get(`${server}/gettrialinfo`, {
@@ -41,7 +44,11 @@ export async function postBrushingResult(brushedIndex, completionTime, exp, part
 	axiosRetry(axios, { retries: 3 });
 
 	exp = parseInt(exp[3])
-	participant = parseInt(participant[1])
+
+	if (participant.length === 2)
+		participant = parseInt(participant[1])
+	else
+		participant = parseInt(participant[1] + participant[2])
 	trial = parseInt(trial)
 	identifier = parseInt(identifier)
 	// convert to string
